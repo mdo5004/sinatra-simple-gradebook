@@ -16,3 +16,31 @@ Confirm
 - [ ] Your commit messages are meaningful
 - [ ] You made the changes in a commit that relate to the commit message
 - [ ] You don't include changes in a commit that aren't related to the commit message
+
+
+student
+id 1
+name Cernan
+class_id 1
+
+student
+id 2
+name Michael
+class_id 1
+
+assignment
+id 1
+name Math Homework
+
+student_assignment
+id 1
+assignment_id 1
+student_id 1
+grade 89.9
+
+student_assignment
+id 2
+assignment_id 1
+student_id 2
+grade 95.5
+
