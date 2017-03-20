@@ -1,0 +1,19 @@
+<h3><%=@student.name%></h3>
+
+<table style="width:30%" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Assignment</th> 
+            <th>Grade</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @assignments.each do |sa|%>
+        <tr>
+            <td><%=sa.assignment.name %></td> 
+            <td><%=sa.grade %></td>
+        </tr>
+        <% end %>    
+    </tbody>
+</table>
