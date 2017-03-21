@@ -1,0 +1,21 @@
+<nav class="breadcrumb">
+  <a class="breadcrumb-item" href="/">Home</a> / 
+  <a class="breadcrumb-item" href="/classes">Classes</a> / 
+  <span class="breadcrumb-item active"><%=@klass.name%></span>
+</nav>
+
+<h1><%=@klass.name%> <small><a href="/classes/<%=@klass.id%>/edit">edit</a></small></h1>
+<h6><%=@klass.description%></h6>
+<br>
+
+<div class="container">
+<h3>Students</h3>
+<ul>
+<% @klass.students.each do |student| %>
+<li><%=student.name%></li>
+<% end %>
+</ul>
+</div>
+
+<h3>Assignments</h3>
+<h6>Coming Soon</h6>
