@@ -1,6 +1,25 @@
 <h1>Students</h1>
-<table>
+<table style="width:100%" class="table table-striped">
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Grade</th>
+        <th>Parent/Guardian</th>
+        <th>Parent/Guardian</th>
+        <th>Address</th>
+        <th>Details</th>
+    </tr>
+</thead>
+<tbody>
 <% @students.each do |student| %>
-
+    <tr>
+        <td><%=student.name %></td>
+        <td><%=student.grade %></td>
+        <td><%=student.parent_guardian1 %></td>
+        <td><%=student.parent_guardian2 %></td>
+        <td><%=student.address %></td>
+        <td><a href="/student/<%=student.id%>">View</a></td>
+    </tr>
 <% end %>
+</tbody>
 </table>
