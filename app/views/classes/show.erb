@@ -4,7 +4,10 @@
   <span class="breadcrumb-item active"><%=@klass.name%></span>
 </nav>
 
-<h1><%=@klass.name%> <small><a href="/classes/<%=@klass.id%>/edit">edit</a></small></h1>
+<h1><%=@klass.name%> 
+<% if @klass.teacher_id == current_user %><small><a href="/classes/<%=@klass.id%>/edit">edit</a></small>
+<% end %>
+</h1>
 <h6><%=@klass.description%></h6>
 <br>
 

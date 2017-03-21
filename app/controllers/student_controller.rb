@@ -1,7 +1,8 @@
 class StudentController < ApplicationController
 
     get "/students/:id/edit" do
-        if logged_in?
+        if logged_in? 
+            #all teachers can edit students?
             @student = Student.find(params[:id])
             erb :"students/edit"
         else
