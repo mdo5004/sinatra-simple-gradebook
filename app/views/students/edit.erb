@@ -1,1 +1,23 @@
 <h1>Edit</h1>
+<form action="/students/<%=@student.id%>/edit" method="post">
+    <div class="form-group">
+            <label for="student_name">Name</label>
+            <input class="form-control" type="text" name="student[name]" id="student_name" value="<%=@student.name%>" autofocus>
+        </div> 
+        <div class="form-group">
+            <label for="grade">Grade</label>
+            <input class="form-control" type=number name="student[grade]" id="grade" value="<%=@student.grade%>">
+        </div>
+        <div class="form-group">
+            <label for="student_parent_guardian1">Parent/Guardian</label>
+            <input class="form-control" type="text" name="student[parent_guardian1]" id="student_parent_guardian1" value="<%=@student.parent_guardian1%>">
+            <label for="student_parent_guardian2">Parent/Guardian</label>
+            <input class="form-control" type="text" name="student[parent_guardian2]" id="student_parent_guardian2" value="<%=@student.parent_guardian2%>">
+        </div>
+        <div class="form-group">
+            <label for="student_address">Address</label>
+            <input class="form-control" type="text" name="student[address]" id="student_address" value="<%=@student.address%>"</input>
+        </div>
+
+        <input type="submit" id="submit" value="Update Student">
+</form>
