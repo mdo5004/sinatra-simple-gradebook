@@ -1,1 +1,15 @@
 <h2>Hello, <%=@teacher.first_name %>. <small>Here's how things stand:</small></h2>
+<br>
+<div class="container">
+<% @teacher.klasses.each do |klass| %>
+<div class="card card-outline-primary mb-3 " style="width: 20rem;">
+  <div class="card-block">
+    <h4 class="card-title"><%=klass.name%></h4>
+    <p class="card-text"><%=klass.description%></p>
+    <!-- assignments -->
+    <a href="/classes/<%=klass.id%>" class="btn btn-primary">Details</a>
+  </div>
+</div>
+<br>
+<% end %>
+</div>
