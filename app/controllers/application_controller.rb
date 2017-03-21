@@ -1,3 +1,4 @@
+require "pry"
 class ApplicationController < Sinatra::Base
     configure do
         #set :public_folder, 'public'
@@ -35,8 +36,8 @@ class ApplicationController < Sinatra::Base
 
     post '/signup' do
         if !logged_in?
-            if params[:username] != '' && params[:password] != '' && params[:email] != ''
-                @user = User.create(params)
+            if params[:first_name] != '' && params[:last_name] != '' && params[:password] != '' && params[:email] != ''
+                @user = Teacher.create(params)
                 session[:id] = @user.id
                 redirect '/classes'
             else
@@ -58,12 +59,13 @@ class ApplicationController < Sinatra::Base
     end
 
     post '/login' do
-
-        if params[:username] != '' && params[:password] != ''
-            user = User.find_by(username: params[:username])
+        
+        if params[:email] != '' && params[:password] != ''
+            @user = Teacher.find_by(email: params[:email])
         end
-        if !!(user && user.authenticate(params[:password]))
-            session[:id] = user.id
+        
+        if !!(@user && @user.authenticate(params[:password]))
+            session[:id] = @user.id
             redirect '/classes'
         else
             redirect '/login'

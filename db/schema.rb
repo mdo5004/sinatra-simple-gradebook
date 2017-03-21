@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321010503) do
+ActiveRecord::Schema.define(version: 20170321013021) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20170321010503) do
     t.string  "parent_guardian1"
     t.string  "parent_guardian2"
     t.string  "address"
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "password_digest"
   end
 
 end
