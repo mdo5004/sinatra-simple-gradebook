@@ -1,6 +1,16 @@
+<nav class="breadcrumb">
+  <a class="breadcrumb-item" href="/">Home</a> / 
+  <a class="breadcrumb-item" href="/students">Students</a> / 
+  <span class="breadcrumb-item active"><%=@student.name%></span>
+</nav>
 <h3><%=@student.name%> <small><a href="/students/<%=@student.id%>/edit">edit</a></small></h3>
 <p>Grade <%=@student.grade%></p>
-
+<h4>Classes</h4>
+<ul>
+   <% @student.klasses.each do |klass| %>
+    <li><a href="/classes/<%=klass.id%>"><h5><%=klass.name %></h5></a> | <%=klass.description %></li>
+    <% end %>
+</ul>
 <table style="width:30%" class="table table-striped">
     <thead>
         <tr>
