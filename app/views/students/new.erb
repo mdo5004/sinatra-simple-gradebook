@@ -1,6 +1,27 @@
-<h1>New Student</h1>
-<form action="/students/new" method="post">
-    
-    <input type="text" name="student[name]" id="student_name">
-    <input type="submit" id="submit" value="Create Student">
-</form>
+
+<div class="col-md-offset-3 col-md-6">
+    <h1>New Student</h1>
+    <form action="/students/new" method="post">
+
+        <div class="form-group">
+            <label for="student_name">Name</label>
+            <input class="form-control" type="text" name="student[name]" id="student_name" placeholder="Johnny Doe">
+        </div> 
+        <div class="form-group">
+            <label for="grade">Grade</label>
+            <input class="form-control" type=number name="student[grade]" id="grade" placeholder="12">
+        </div>
+        <div class="form-group">
+            <label for="student_parent_guardian1">Parent/Guardian</label>
+            <input class="form-control" type="text" name="student[parent_guardian1]" id="student_parent_guardian1" placeholder="Jane Doe">
+            <label for="student_parent_guardian2">Parent/Guardian</label>
+            <input class="form-control" type="text" name="student[parent_guardian2]" id="student_parent_guardian2" placeholder="John Doe">
+        </div>
+        <div class="form-group">
+            <label for="student_address">Address</label>
+            <input class="form-control" type="text" name="student[address]" id="student_address" placeholder="Anywheresville, USA">
+        </div>
+
+        <input type="submit" id="submit" value="Create Student">
+    </form>
+</div>

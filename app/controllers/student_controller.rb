@@ -7,7 +7,13 @@ class StudentController < ApplicationController
             redirect "/login" 
         end
     end
-    
+    get "/students/new" do
+        if logged_in?
+            erb :"students/new"
+        else
+            redirect "/login" 
+        end
+    end
     get "/students/:id" do
         if logged_in?
             @student = Student.find(params[:id])
@@ -19,13 +25,7 @@ class StudentController < ApplicationController
 
     end
     
-    get "/students/new" do
-        if logged_in?
-            erb :"students/new"
-        else
-            redirect "/login" 
-        end
-    end
+    
 
     post "/students/new" do
         @student = Student.create(params[:student])
