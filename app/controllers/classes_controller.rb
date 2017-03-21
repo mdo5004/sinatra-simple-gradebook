@@ -7,4 +7,18 @@ class ClassesController < ApplicationController
             redirect "/login"
         end
     end
+    get "/classes/:id/edit" do
+        @klass = Klass.find(params[:id])
+        erb :"classes/edit"
+    end
+    post "/classes/:id/edit" do
+        @klass = Klass.find(params[:id])
+        @klass.update(params[:klass])
+        redirect "/classes/#{params[:id]}"
+    end
+    
+    get "/classes/:id" do
+        @klass = Klass.find(params[:id])
+        erb :"classes/show"
+    end
 end
