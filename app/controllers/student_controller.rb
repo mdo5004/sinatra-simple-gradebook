@@ -6,4 +6,12 @@ class StudentController < ApplicationController
         erb :"students/student"
     end
     
+    get "/students/:id/edit" do
+    end
+    
+    get "/students/new" do
+    end
+    
+    post "/students/new"
+    
 end
