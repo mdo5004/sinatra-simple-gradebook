@@ -22,7 +22,7 @@ class ApplicationController < Sinatra::Base
     end
     get '/' do
         session[:page]='home'
-        erb :index
+        erb :"/users/login"
     end
     
     get '/signup' do
