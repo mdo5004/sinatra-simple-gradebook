@@ -35,9 +35,10 @@ class StudentController < ApplicationController
     post "/students/new" do
         if params[:student][:name] != ''
             @student = Student.create(params[:student])
+            flash[:success] = "Student created!"
             redirect "/students"
         else 
-            flash[:message]="Your student must have a name"
+            flash[:error]="Your student must have a name"
             redirect "/students/new"
         end
     end

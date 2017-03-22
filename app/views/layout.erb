@@ -36,7 +36,7 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        
+
                         <form class="navbar-form navbar-left">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Search Coming Soon">
@@ -44,7 +44,7 @@
                             <button type="submit" class="btn btn-default">Submit</button>
                         </form>
                         <ul class="nav navbar-nav navbar-right">
-                           <% if logged_in? %>
+                            <% if logged_in? %>
                             <li><a href="/logout">Log Out</a></li>
                             <% else %>
                             <li><a href="/signup">Sign Up<%=' <span class="sr-only">(current)</span>' if current_page=='signup'%></a></li>
@@ -56,7 +56,16 @@
             </nav>
             <h1>Simple Gradebook</h1>
             <p>The simple gradebook for busy teachers.</p>
-            <%= flash[:message]%>
+            <% if flash[:error] %>
+            <div class="alert alert-danger" role="alert">
+                <strong>Error:</strong> <%= flash[:error]%>
+            </div>
+            <% end %>
+            <% if flash[:success] %>
+            <div class="alert alert-success" role="alert">
+                <strong>Success!</strong> <%= flash[:success] %>
+            </div>
+            <% end %>
 
             <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  -->
             <%= yield %>
