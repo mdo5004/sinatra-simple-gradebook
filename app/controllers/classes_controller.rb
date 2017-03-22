@@ -10,12 +10,18 @@ class ClassesController < ApplicationController
         end
     end
     post "/classes/:id/edit" do
-        @klass = Klass.find(params[:id])
-        @klass.update(params[:klass])
-        if params[:student][:name] != ''
-            @klass.students.create(params[:student]) 
+        if params[:klass][:name] != '' && params[:klass][:description] != ''
+            @klass = Klass.find(params[:id])
+            @klass.update(params[:klass])
+            if params[:student][:name] != ''
+                @klass.students.create(params[:student]) 
+            end
+            flash[:success] = "Class successfully edited"
+            redirect "/classes/#{params[:id]}"
+        else
+            flash[:error] = "Classes must have a name and description"
+            redirect "/classes/#{params[:id]}/edit"
         end
-        redirect "/classes/#{params[:id]}"
     end
 
     get "/classes/new" do
@@ -26,12 +32,18 @@ class ClassesController < ApplicationController
         end
     end
     post "/classes/new" do
-        @teacher = Teacher.find(current_user)
-        @teacher.klasses.create(params[:klass])
-        if params[:student][:name] != ''
-            @klass.students.create(params[:student]) 
+        if params[:klass][:name] != '' && params[:klass][:description] != ''
+            @teacher = Teacher.find(current_user)
+            @teacher.klasses.create(params[:klass])
+            if params[:student][:name] != ''
+                @klass.students.create(params[:student]) 
+            end
+            flash[:success] = "Class successfully created"
+            redirect "/classes/#{@klass.id}"
+        else
+            flash[:error] = "Classes must have a name and description"
+            redirect "/classes/new"
         end
-        redirect "/classes"
     end
 
     get "/classes/:id" do
