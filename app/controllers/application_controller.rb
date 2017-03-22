@@ -15,16 +15,22 @@ class ApplicationController < Sinatra::Base
         def current_user
             session[:id] 
         end
-        
+
         def current_page
             session[:page]
         end
     end
     get '/' do
-        session[:page]='home'
-        erb :"/users/login"
+        if logged_in?
+            
+            session[:page]='home'
+            erb :'/index'  
+        else
+            session[:page]='login'
+            erb :"/users/login"
+        end   
     end
-    
+
     get '/signup' do
 
         if logged_in?
@@ -54,16 +60,17 @@ class ApplicationController < Sinatra::Base
         if logged_in?
             redirect "/classes"
         else
+            session[:page]="login"
             erb :"/users/login"
         end
     end
 
     post '/login' do
-        
+
         if params[:email] != '' && params[:password] != ''
             @user = Teacher.find_by(email: params[:email])
         end
-        
+
         if !!(@user && @user.authenticate(params[:password]))
             session[:id] = @user.id
             redirect '/classes'
@@ -76,6 +83,6 @@ class ApplicationController < Sinatra::Base
         session.clear
         redirect "/login"
     end
-    
+
 
 end
