@@ -12,6 +12,9 @@ class ClassesController < ApplicationController
     post "/classes/:id/edit" do
         @klass = Klass.find(params[:id])
         @klass.update(params[:klass])
+        if params[:student][:name] != ''
+            @klass.students.create(params[:student]) 
+        end
         redirect "/classes/#{params[:id]}"
     end
 

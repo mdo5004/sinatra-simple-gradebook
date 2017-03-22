@@ -14,5 +14,9 @@
         <input type=checkbox name="klass[student_ids][]" value="<%=student.id%>"<%= 'checked' if @klass.students.include?(student) %>><%=student.name %><br>
         <% end %>
     </div>
+    <div class="form-group">
+        <label>New Student</label>
+        <input type="text" name="student[name]">
+    </div>
     <input type="submit" id="submit" value="Update Class">
 </form>
