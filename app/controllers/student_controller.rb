@@ -26,15 +26,20 @@ class StudentController < ApplicationController
         end
 
     end
-    
+
 
     post "/students/:id/edit" do
         Student.find(params[:id]).update(params[:student])
         redirect "/students/#{params[:id]}"
     end
     post "/students/new" do
-        @student = Student.create(params[:student])
-        redirect "/students"
+        if params[:student][:name] != ''
+            @student = Student.create(params[:student])
+            redirect "/students"
+        else 
+            flash[:message]="Your student must have a name"
+            redirect "/students/new"
+        end
     end
 
     get "/students" do
