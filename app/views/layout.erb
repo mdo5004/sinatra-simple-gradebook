@@ -48,7 +48,7 @@
                             <li><a href="/logout">Log Out</a></li>
                             <% else %>
                             <li><a href="/signup">Sign Up<%=' <span class="sr-only">(current)</span>' if current_page=='signup'%></a></li>
-                            <li><a href="/login">Log In</a></li>
+                            <li><a href="/login">Log In<%=' <span class="sr-only">(current)</span>' if current_page=='login'%></a></li>
                             <% end %>
                         </ul>
                     </div><!-- /.navbar-collapse -->
