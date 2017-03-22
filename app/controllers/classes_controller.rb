@@ -28,6 +28,9 @@ class ClassesController < ApplicationController
     post "/classes/new" do
         @teacher = Teacher.find(current_user)
         @teacher.klasses.create(params[:klass])
+        if params[:student][:name] != ''
+            @klass.students.create(params[:student]) 
+        end
         redirect "/classes"
     end
 
