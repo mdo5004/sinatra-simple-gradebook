@@ -1,24 +1,49 @@
 <nav class="breadcrumb">
-  <a class="breadcrumb-item" href="/">Home</a> / 
-  <a class="breadcrumb-item" href="/classes">Classes</a> / 
-  <span class="breadcrumb-item active"><%=@klass.name%></span>
+    <a class="breadcrumb-item" href="/">Home</a> / 
+    <a class="breadcrumb-item" href="/classes">Classes</a> / 
+    <span class="breadcrumb-item active"><%=@klass.name%></span>
 </nav>
 
 <h1><%=@klass.name%> 
-<% if @klass.teacher_id == current_user %><small><a href="/classes/<%=@klass.id%>/edit">edit</a></small>
-<% end %>
+    <% if @klass.teacher_id == current_user %><small><a href="/classes/<%=@klass.id%>/edit">edit</a></small>
+    <% end %>
 </h1>
 <h6><%=@klass.description%></h6>
 <br>
 
-<div class="container">
+
 <h3>Students</h3>
-<ul>
-<% @klass.students.each do |student| %>
-<li><%=student.name%></li>
-<% end %>
-</ul>
-</div>
+<table class="table">
+    <thead>
+        <th>Name</th>
+        <% @klass.assignments.each do |assignment| %>
+        <th><%=assignment.name %></th>
+        <% end %>
+    </thead>
+    <% @klass.students.each do |student| %>
+    <tr>
+        <td><%=student.name%></td>
+        <% student.student_assignments.each do |sa| %>
+        <td><%=sa.grade %></td> <!-- will these always be in order? -->
+        <% end %>
+
+    </tr>
+    <% end %>
+</table>
+
 
 <h3>Assignments</h3>
-<h6>Coming Soon</h6>
+<table class="table">
+    <thead>
+        <th>#</th>
+        <th>Name</th>
+        <th>Link</th>
+    </thead>
+    <%@klass.assignments.each_with_index do |assignment,i|%>
+    <tr>
+        <td><%=i+1 %></td>
+        <td><%=assignment.name %></td>
+        <td><a>View</a></td>
+    </tr>
+    <% end %>
+</table>
