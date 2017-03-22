@@ -24,7 +24,7 @@ class ApplicationController < Sinatra::Base
         if logged_in?
             
             session[:page]='home'
-            erb :'/index'  
+            erb :index
         else
             session[:page]='login'
             erb :"/users/login"
@@ -58,7 +58,7 @@ class ApplicationController < Sinatra::Base
 
     get '/login' do
         if logged_in?
-            redirect "/classes"
+            erb :index
         else
             session[:page]="login"
             erb :"/users/login"
