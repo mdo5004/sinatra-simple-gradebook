@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170321180022) do
+ActiveRecord::Schema.define(version: 20170321223145) do
 
   create_table "assignments", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "klass_id"
   end
 
   create_table "klasses", force: :cascade do |t|
