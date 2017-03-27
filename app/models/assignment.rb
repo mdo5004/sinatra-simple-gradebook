@@ -5,15 +5,15 @@ class Assignment < ActiveRecord::Base
 
     belongs_to :klass
     
-    validates :name
+    validates :name, presence: true
     
     after_create :assign_to_students
 
     def assign_to_students
         self.klass.students.each do |student|
-        #if student.student_assignments.where(assignment_id: self.id).empty?
+        
             student.assignments << self
-           # end
+        
         end
     end
 end
