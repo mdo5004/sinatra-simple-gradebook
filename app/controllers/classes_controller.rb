@@ -21,9 +21,11 @@ class ClassesController < ApplicationController
     post "/classes" do
 
         @teacher = current_teacher
-        @klass = @teacher.klasses.new(params[:klass])
-        if params[:student][:name] != ''
-            @klass.students.create(params[:student]) 
+        @klass = @teacher.klasses.create(params[:klass])
+        @student = @klass.students.create(params[:student]) 
+        
+        if !@student.save
+            flash[:warning] = @student.errors.full_messages.join(", ")
         end
 
         if @klass.save
@@ -60,8 +62,9 @@ class ClassesController < ApplicationController
 
         @klass = Klass.find_by(id: params[:id])
         
-        @student = @klass.students.create(params[:student]) 
-        flash[:warning] = @student.errors.full_messages.join(", ")
+        if !@student.save
+            flash[:warning] = @student.errors.full_messages.join(", ")
+        end
         
         if @klass.update(params[:klass])
             flash[:success] = "Class successfully edited"
