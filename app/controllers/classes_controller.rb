@@ -1,15 +1,15 @@
 class ClassesController < ApplicationController
-    
+
     get "/classes" do 
         if logged_in?
-            @teacher = Teacher.find(current_user)
+            @teacher = current_teacher
             session[:page]="classes"
             erb :"classes/index"
         else
             redirect "/login"
         end
     end
-    
+
     get "/classes/new" do
         if logged_in?
             erb :"classes/new"
@@ -17,25 +17,27 @@ class ClassesController < ApplicationController
             redirect "/login"
         end
     end
-    
+
     post "/classes" do
-        if params[:klass][:name] != '' && params[:klass][:description] != ''
-            @teacher = Teacher.find(current_user)
-            @klass = @teacher.klasses.create(params[:klass])
-            if params[:student][:name] != ''
-                @klass.students.create(params[:student]) 
-            end
+
+        @teacher = current_teacher
+        @klass = @teacher.klasses.new(params[:klass])
+        if params[:student][:name] != ''
+            @klass.students.create(params[:student]) 
+        end
+
+        if @klass.save
             flash[:success] = "Class successfully created"
             redirect "/classes/#{@klass.id}"
         else
-            flash[:error] = "Classes must have a name and description"
+            flash[:error] = @klass.errors.full_messages.join(", ")
             redirect "/classes/new"
         end
     end
-    
+
     get "/classes/:id" do
         if logged_in?
-            @klass = Klass.find(params[:id])
+            @klass = Klass.find_by(id: params[:id])
             session[:page]="classes"
             erb :"classes/show"
         else
@@ -44,32 +46,34 @@ class ClassesController < ApplicationController
     end
 
     get "/classes/:id/edit" do
-        if Klass.find(params[:id]).teacher_id == current_user
-            @klass = Klass.find(params[:id])
+        if Klass.find_by(id: params[:id]).teacher == current_teacher
+            @klass = Klass.find_by(id: params[:id])
             session[:page]="classes"
             erb :"classes/edit"
         else
+            flash[:error] = "Only #{@klass.teacher} can edit that class"
             redirect "/classes"
         end
     end
-    
+
     put "/classes/:id" do
-        if params[:klass][:name] != '' && params[:klass][:description] != ''
-            @klass = Klass.find(params[:id])
-            @klass.update(params[:klass])
-            if params[:student][:name] != ''
-                @klass.students.create(params[:student]) 
-            end
+
+        @klass = Klass.find_by(id: params[:id])
+        
+        @student = @klass.students.create(params[:student]) 
+        flash[:warning] = @student.errors.full_messages.join(", ")
+        
+        if @klass.update(params[:klass])
             flash[:success] = "Class successfully edited"
             redirect "/classes/#{params[:id]}"
         else
-            flash[:error] = "Classes must have a name and description"
+            flash[:error] = @klass.errors.full_messages.join(", ")
             redirect "/classes/#{params[:id]}/edit"
         end
     end
 
-   
 
-    
-    
+
+
+
 end

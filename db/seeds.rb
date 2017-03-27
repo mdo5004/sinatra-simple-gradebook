@@ -1,5 +1,5 @@
-Teacher.create(first_name: "Michael", last_name: "O'Connell",email: "michaeldavidoconnell@gmail.com",password:"password")
-Teacher.create(first_name: "Rachel", last_name: "O'Connell", email:"rachel.v.oconnell@gmail.com", password:"password")
+michael = Teacher.create(first_name: "Michael", last_name: "O'Connell",email: "michaeldavidoconnell@gmail.com",password:"password")
+rachel = Teacher.create(first_name: "Rachel", last_name: "O'Connell", email:"rachel.v.oconnell@gmail.com", password:"password")
 Klass.create(name:"Math 101",description:"Math for beginners",teacher_id:1)
 Klass.create(name:"Math 102", description: "Intermediate math",teacher_id:1)
 Klass.create(name:"Medicine 101", description:"Intro to medicine", teacher_id:2)

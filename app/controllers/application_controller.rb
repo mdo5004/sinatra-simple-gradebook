@@ -24,7 +24,7 @@ class ApplicationController < Sinatra::Base
     end
     get '/' do
         if logged_in?
-            
+
             session[:page]='home'
             erb :index
         else
@@ -66,7 +66,7 @@ class ApplicationController < Sinatra::Base
 
     post '/login' do
         @teacher = Teacher.find_by(email: params[:email])
-        if @teacher && @teacher.authenticate(params[:password]))
+        if @teacher && @teacher.authenticate(params[:password])
             session[:teacher_id] = @teacher.id
             redirect '/classes'
         else
