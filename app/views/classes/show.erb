@@ -23,10 +23,10 @@
     <% @klass.students.each do |student| %>
     <tr>
         <td><%=student.name%></td>
-        <% student.student_assignments.each do |sa| %>
-        <% if sa.assignment.klass_id == @klass.id %>
-        <td><%=sa.grade %></td> <!-- will these always be in order? -->
-        <% end %>
+<% student.student_assignments.joins(:assignment).where("assignments.klass_id = ?", @klass.id).order(:assignment_id).each do |sa| %>
+           
+            <td><%= sa.grade %></td>
+            
         <% end %>
 
     </tr>

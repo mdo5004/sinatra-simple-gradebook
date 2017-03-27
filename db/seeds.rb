@@ -24,3 +24,7 @@ math102.assignments.create(name: "Assignment 3")
 med101.assignments.create(name: "LAB 1")
 med101.assignments.create(name: "LAB 2")
 med101.assignments.create(name: "LAB 3")
+
+StudentAssignment.all.each do |sa|
+    sa.update(grade: Random.rand(70..100))
+end
