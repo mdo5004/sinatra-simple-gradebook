@@ -10,9 +10,9 @@ class Assignment < ActiveRecord::Base
     
     def assign_to_students
         self.klass.students.each do |student|
-            if student.student_assignments.where(assignment_id: self.id).empty?
-                self.student_assignments.create(student_id: student.id)
-            end
+        #if student.student_assignments.where(assignment_id: self.id).empty?
+            student.assignments << self
+           # end
         end
     end
 end

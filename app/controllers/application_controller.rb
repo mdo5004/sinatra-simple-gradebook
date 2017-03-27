@@ -11,11 +11,11 @@ class ApplicationController < Sinatra::Base
 
     helpers do
         def logged_in?
-            !session[:id].nil?
+            !!current_teacher 
         end
 
-        def current_user
-            session[:id] 
+        def current_teacher
+            @current_teacher ||= Teacher.find_by(id: session[:teacher_id])
         end
 
         def current_page
@@ -43,18 +43,15 @@ class ApplicationController < Sinatra::Base
     end
 
     post '/signup' do
-        if !logged_in?
-            if params[:first_name] != '' && params[:last_name] != '' && params[:password] != '' && params[:email] != ''
-                @user = Teacher.create(params)
-                session[:id] = @user.id
-                redirect '/classes'
-            else
-                #message = all fields must be filled out
-                redirect "/signup"
-            end
-        else
-            # logged in means you can't view sign up page
-            redirect "/classes"
+        redirect to "/classes" if logged_in?
+        @teacher = Teacher.new(params)
+        if @teacher.save 
+            session[:teacher_id] = @teacher.id
+            flash[:message] = "Welcome #{@teacher.first_name}!"
+            redirect '/classes'
+        else 
+            flash[:error] = @teacher.errors.full_messages.join(", ")
+            erb :'/users/create_login'
         end
     end
 
@@ -68,13 +65,9 @@ class ApplicationController < Sinatra::Base
     end
 
     post '/login' do
-
-        if params[:email] != '' && params[:password] != ''
-            @user = Teacher.find_by(email: params[:email])
-        end
-
-        if !!(@user && @user.authenticate(params[:password]))
-            session[:id] = @user.id
+        @teacher = Teacher.find_by(email: params[:email])
+        if @teacher && @teacher.authenticate(params[:password]))
+            session[:teacher_id] = @teacher.id
             redirect '/classes'
         else
             redirect '/login'

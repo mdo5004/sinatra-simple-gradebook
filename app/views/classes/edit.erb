@@ -1,5 +1,6 @@
 <h1>Edit</h1>
-<form action="/classes/<%=@klass.id%>/edit" method="post">
+<form action="/classes/<%=@klass.id%>" method="post">
+   <input type="hidden" name="_method" value="put" />
     <div class="form-group">
         <label for="klass_name">Name</label>
         <input class="form-control" type="text" name="klass[name]" id="klass_name" value="<%=@klass.name%>" autofocus>
