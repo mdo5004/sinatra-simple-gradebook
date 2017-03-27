@@ -48,12 +48,12 @@ class ClassesController < ApplicationController
     end
 
     get "/classes/:id/edit" do
-        if Klass.find_by(id: params[:id]).teacher == current_teacher
-            @klass = Klass.find_by(id: params[:id])
+        @klass = Klass.find_by(id: params[:id])
+        if @klass.teacher == current_teacher
             session[:page]="classes"
             erb :"classes/edit"
         else
-            flash[:error] = "Only #{@klass.teacher} can edit that class"
+            flash[:error] = "You can't edit that class"
             redirect "/classes"
         end
     end
