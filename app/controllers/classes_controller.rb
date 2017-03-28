@@ -19,9 +19,7 @@ class ClassesController < ApplicationController
     end
 
     post "/classes" do
-
-        @teacher = current_teacher
-        @klass = @teacher.klasses.create(params[:klass])
+        @klass = current_teacher.klasses.create(params[:klass])
         @student = @klass.students.create(params[:student]) 
         
         if !@student.save
