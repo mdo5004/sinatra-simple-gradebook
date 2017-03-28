@@ -19,13 +19,16 @@ class ClassesController < ApplicationController
     end
 
     post "/classes" do
-        @klass = current_teacher.klasses.create(params[:klass])
-        @student = @klass.students.create(params[:student]) 
-        
-        if !@student.save
-            flash[:warning] = @student.errors.full_messages.join(", ")
+        @klass = current_teacher.klasses.build(params[:klass])
+        if !params[:student].empty?
+            @student = Student.new(params[:student])
+#binding.pry
+            if @student.save && @klass.save
+                @klass.students << @student
+            else
+                flash[:warning] = "Tried to create new student: " + @student.errors.full_messages.join(", ")
+            end
         end
-
         if @klass.save
             flash[:success] = "Class successfully created"
             redirect "/classes/#{@klass.id}"
@@ -59,11 +62,11 @@ class ClassesController < ApplicationController
     put "/classes/:id" do
 
         @klass = Klass.find_by(id: params[:id])
-        
+
         if !@student.save
             flash[:warning] = @student.errors.full_messages.join(", ")
         end
-        
+
         if @klass.update(params[:klass])
             flash[:success] = "Class successfully edited"
             redirect "/classes/#{params[:id]}"
