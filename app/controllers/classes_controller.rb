@@ -66,7 +66,6 @@ class ClassesController < ApplicationController
         if !params[:student][:name].empty?
             @student = Student.new(params[:student])
             if @student.save && @klass.save
-                binding.pry
                 params[:klass][:student_ids] << @student.id
             else
                 flash[:warning] = "Tried to create new student: " + @student.errors.full_messages.join(", ")
