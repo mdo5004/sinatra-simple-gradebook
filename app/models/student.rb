@@ -7,4 +7,5 @@ class Student < ActiveRecord::Base
     has_many :teachers, through: :klasses
     
     validates :name, presence: true
+    validates :name, length: {minimum: 2, maximum: 20}
 end
