@@ -20,7 +20,7 @@ class ClassesController < ApplicationController
 
     post "/classes" do
         @klass = current_teacher.klasses.build(params[:klass])
-        if !params[:student].empty?
+        if !params[:student][:name].empty?
             @student = Student.new(params[:student])
 #binding.pry
             if @student.save && @klass.save
@@ -62,9 +62,13 @@ class ClassesController < ApplicationController
     put "/classes/:id" do
 
         @klass = Klass.find_by(id: params[:id])
-
-        if !@student.save
-            flash[:warning] = @student.errors.full_messages.join(", ")
+        if !params[:student][:name].empty?
+            @student = Student.new(params[:student])
+            if @student.save && @klass.save
+                @klass.students << @student
+            else
+                flash[:warning] = "Tried to create new student: " + @student.errors.full_messages.join(", ")
+            end
         end
 
         if @klass.update(params[:klass])
