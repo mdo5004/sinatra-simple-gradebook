@@ -1,0 +1,14 @@
+<h2>New Assignment</h2>
+<form>
+    <div class="form-group">
+        <label for="klass_name">Name</label>
+        <input class="form-control" type="text" name="klass[name]" id="klass_name" placeholder="Algebra II" autofocus>
+    </div>
+    <div class="form-group">
+        <% @klass.students.each do |student| %>
+        <label for="<%= student.name%>-grade"><%= student.name %></label>
+        <input class="form-control" type="number" name="student_assignment[<%= student.name %>]" id="<%= student.name%>-grade" placeholder="100"/>
+        <% end %>
+    </div>
+
+</form>
