@@ -1,8 +1,12 @@
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
   pool: 5
   timeout: 5000
 
 development:
   <<: *default
-  database: db/development.sqlite
+  database: db/heroku_development
+  
+production:
+  <<: *default
+  database: db/heroku_production
